@@ -27,7 +27,7 @@ int h = 16, m = 42, s = 0;
 
 char filename[15];              // create text array with desired number of characters
 File logfile;                   // create logging file object
-bool first_loop = true;         // defines operations that only happen the first time the code loops
+//bool first_loop = true;         // defines operations that only happen the first time the code loops
 unsigned long T_old_anemom;
 unsigned long T_old;
 
@@ -109,23 +109,20 @@ void loop() {
 //  } 
            
   digitalWrite(greenLED, HIGH);         // LED on to show device is on
-  logfile = SD.open(filename, FILE_WRITE);
-  logfile.print("A0 = "); logfile.println(analogRead(0));
-  logfile.close();
-  Serial.print("A0 = "); Serial.println(analogRead(0));
-  if( anemometer){
-    Serial.println(T_old_anemom);
-    Serial.println(millis());
-  }
-  digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
-     
-  //column_headings_to_SD();
+//  logfile = SD.open(filename, FILE_WRITE);
+//  logfile.print("A0 = "); logfile.println(analogRead(0));
+//  logfile.close();
+//  Serial.print("A0 = "); Serial.println(analogRead(0));
+
+
   if ((millis() - T_old) > LOG_INTERVAL){ 
     save_to_SD();
     T_old = millis();
   }
   
-  delay(100);
+  digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+     
+
 
 //  readUVindex();
 //
@@ -145,7 +142,7 @@ void loop() {
 //  delay(LOG_INTERVAL);
 
   //Serial.println(anemometer_count);
-  first_loop = false;
+//  first_loop = false;
   
  } 
 

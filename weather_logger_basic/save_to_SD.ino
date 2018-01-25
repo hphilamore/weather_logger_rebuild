@@ -34,9 +34,9 @@ void column_headings_to_SD(){
     Serial.print("\t");
   }
 
-  logfile.print("\n");
+  logfile.println("");
   if (ECHO_TO_SERIAL){  
-    Serial.print("\n");
+    Serial.println("");
   }
 
   // close the file ensuring that written data is physically saved to the SD card
@@ -97,9 +97,9 @@ void save_to_SD(){
 //    Serial.print("\n");
 //  }
 
-  logfile.print("\n");
+  logfile.println("");
   if (ECHO_TO_SERIAL){  
-    Serial.print("\n");
+    Serial.println("");
   }
 
   // close the file ensuring that written data is physically saved to the SD card
