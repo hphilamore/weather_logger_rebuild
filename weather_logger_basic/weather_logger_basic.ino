@@ -2,18 +2,16 @@
 #include <SD.h>
 #include <Wire.h>
 #include <RTCZero.h>
-//#include "UV_lightmeter_setup.h"
+#include "UVlightmeter_setup.h"
 #include "anemometer_setup.h"
 #include "vane_setup.h"
 
-
 RTCZero rtc;                  // create real time clock object
 
-//// RTC time and date setup
-//// Set to true and set clock a few seconds in the future.
-//// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
+// RTC time and date setup
+// Set to true and set clock a few seconds in the future.
+// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
 #define set_RTC_date_time false
-//int set_RTC_date_time = 0;
 int D = 23, M = 1, Y = 18;
 int h = 16, m = 42, s = 0; 
 
@@ -22,22 +20,23 @@ int h = 16, m = 42, s = 0;
 #define ECHO_TO_SERIAL true     // echo data to serial port
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
+#define UVsensor true          // measure UV index
 
 #define redLED 13
 #define greenLED 8
-#define cardSelect 4              // pin used for SD card
+#define cardSelect 4            // pin used for SD card
 
 char filename[15];              // create text array with desired number of characters
 File logfile;                   // create logging file object
-//bool first_loop = true;         // defines operations that only happen the first time the code loops
+//bool first_loop = true;       // defines operations that only happen the first time the code loops
 
 unsigned long T_old;
 
 void setup() {
   
-  Serial.begin(115200);       // 115200 to read the GPS fast enough and echo without dropping chars
+  Serial.begin(115200);         // 115200 to read the GPS fast enough and echo without dropping chars
   Wire.begin();  
-  rtc.begin();                // Start the RTC
+  rtc.begin();                  // Start the RTC
 
   // set the date and time
   if (set_RTC_date_time){
@@ -88,41 +87,19 @@ void setup() {
   }
 
 
+  if( UVsensor ){
+    if (! uv.begin()) {
+      Serial.println("Didn't find Si1145 UV meter");
+    }
 
-  
-  
-//  // comment out if not using UV sensor
-//  if (! uv.begin()) {
-//    Serial.println("Didn't find Si1145");
-//    while (1);
-//  }
-  
-//  column_headings_to_SD();
-//
-//  // comment out if ot using anemometer
-//  pinMode(9, INPUT);
-//  attachInterrupt(digitalPinToInterrupt(9), rotations, RISING);
+    
+  }
 }
 
 
 uint8_t i=0;
 
 void loop() {
-
-//  if (anemometer){
-//    if (first_loop){
-//      unsigned long T_old_anemom = millis();
-//    } 
-//  } 
-           
-  
-  
-//  logfile = SD.open(filename, FILE_WRITE);
-//  logfile.print("A0 = "); logfile.println(analogRead(0));
-//  logfile.close();
-//  Serial.print("A0 = "); Serial.println(analogRead(0));
-
-  
 
   if ((millis() - T_old) > LOG_INTERVAL){ 
     
@@ -131,22 +108,17 @@ void loop() {
     if( anemometer ){
       wind_speed();
     }
-
     
     if( wind_vane ){
       wind_direction();
     }
 
+    if( UVsensor ){
+      UV_index();
+    }
     
     save_to_SD();
-    T_old = millis();
-
-    
-
-//    logfile = SD.open(filename, FILE_WRITE);
-//    logfile.println(count_anemom);
-//    logfile.close();
-//    Serial.println(count_anemom);    
+    T_old = millis();  
 
     digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
     
@@ -155,7 +127,7 @@ void loop() {
      
 
 
-//  readUVindex();
+
 
  
   
