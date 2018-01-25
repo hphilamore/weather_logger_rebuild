@@ -69,6 +69,13 @@ void setup() {
       break;
     }    
   }
+
+  logfile = SD.open(filename, FILE_WRITE);
+  if( ! logfile ) {
+    Serial.print("Couldnt create "); 
+    Serial.println(filename);
+    errorLED(3);
+  }
   
   Serial.print("Writing to ");
   Serial.println(filename);
@@ -87,7 +94,9 @@ void loop() {
 
 
   digitalWrite(8, HIGH);
+  logfile = SD.open(filename, FILE_WRITE);
   logfile.print("A0 = "); logfile.println(analogRead(0));
+  logfile.close();
   Serial.print("A0 = "); Serial.println(analogRead(0));
   digitalWrite(8, LOW);
   
