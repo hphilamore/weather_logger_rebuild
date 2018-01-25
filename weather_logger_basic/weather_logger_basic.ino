@@ -111,30 +111,41 @@ void loop() {
 //    } 
 //  } 
            
-  digitalWrite(greenLED, HIGH);         // LED on to show device is on
+  
   
 //  logfile = SD.open(filename, FILE_WRITE);
 //  logfile.print("A0 = "); logfile.println(analogRead(0));
 //  logfile.close();
 //  Serial.print("A0 = "); Serial.println(analogRead(0));
 
-  logfile = SD.open(filename, FILE_WRITE);
-  logfile.println(count_anemom);
-  logfile.close();
-  Serial.println(count_anemom);
+  
 
   if ((millis() - T_old) > LOG_INTERVAL){ 
+    
+    digitalWrite(greenLED, HIGH);         // LED on to show device is on
+
+    if( anemometer ){
+      wind_speed();
+    }
+    
     save_to_SD();
     T_old = millis();
+
+    logfile = SD.open(filename, FILE_WRITE);
+    logfile.println(count_anemom);
+    logfile.close();
+    Serial.println(count_anemom);    
+
+    digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+    
   }
-  
-  digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+} 
      
 
 
 //  readUVindex();
-//
-//  wind_speed();
+
+ 
   
   
 //  // LED on to show device is on
@@ -152,7 +163,7 @@ void loop() {
   //Serial.println(anemometer_count);
 //  first_loop = false;
   
- } 
+ //} 
 
 
  // blink out an error code
