@@ -3,7 +3,7 @@
 #include <Wire.h>
 #include <RTCZero.h>
 //#include "UV_lightmeter_setup.h"
-//#include "anemometer_setup.h"
+#include "anemometer_setup.h"
 
 
 RTCZero rtc;                  // create real time clock object
@@ -28,7 +28,7 @@ int h = 16, m = 42, s = 0;
 char filename[15];              // create text array with desired number of characters
 File logfile;                   // create logging file object
 //bool first_loop = true;         // defines operations that only happen the first time the code loops
-unsigned long T_old_anemom;
+
 unsigned long T_old;
 
 void setup() {
