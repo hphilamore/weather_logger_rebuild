@@ -1,7 +1,7 @@
 #include <SPI.h>
 #include <SD.h>
-//#include <Wire.h>
-//#include <RTCZero.h>
+#include <Wire.h>
+#include <RTCZero.h>
 //#include "UV_lightmeter_setup.h"
 //#include "anemometer_setup.h"
 
