@@ -6,7 +6,6 @@ void rotations(){
 void wind_speed(){
   if ((millis() - T_old_anemom) > period_anemom){ 
     calculate_wind_speed();
-    Serial.println("calculating wind speed");
     }
 }
 

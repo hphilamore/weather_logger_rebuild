@@ -4,6 +4,7 @@
 #include <RTCZero.h>
 //#include "UV_lightmeter_setup.h"
 #include "anemometer_setup.h"
+#include "vane_setup.h"
 
 
 RTCZero rtc;                  // create real time clock object
@@ -86,6 +87,8 @@ void setup() {
   }
 
   
+
+  
   
 //  // comment out if not using UV sensor
 //  if (! uv.begin()) {
@@ -130,6 +133,8 @@ void loop() {
     
     save_to_SD();
     T_old = millis();
+
+    wind_direction();
 
 //    logfile = SD.open(filename, FILE_WRITE);
 //    logfile.println(count_anemom);
