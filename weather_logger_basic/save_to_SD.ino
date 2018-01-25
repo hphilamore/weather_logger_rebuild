@@ -25,14 +25,18 @@ void column_headings_to_SD(){
     Serial.print("UV_index");
     Serial.print("\t");
   }
+
  
   // windspeed
-  logfile.print("windspeed"); 
-  logfile.print("\t");
-  if (ECHO_TO_SERIAL){  
-    Serial.print("windspeed");
-    Serial.print("\t");
+  if( anemometer ){
+    logfile.print("windspeed"); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print("windspeed");
+      Serial.print("\t");
+    }
   }
+
 
   logfile.println("");
   if (ECHO_TO_SERIAL){  
@@ -84,18 +88,16 @@ void save_to_SD(){
 //  }
 
 
-//  // write windspeed to file on SD card (and serial monitor)
-//  logfile.print(windspeed); 
-//  logfile.print("\t");
-//  if (ECHO_TO_SERIAL){
-//    Serial.print(windspeed);
-//    Serial.print("\t");
-//  }
+  // write windspeed to file on SD card (and serial monitor)
+  if( anemometer ){
+    logfile.print(windspeed); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){
+      Serial.print(windspeed);
+      Serial.print("\t");
+    }
+  }
   
-//  logfile.print("\n");
-//  if (ECHO_TO_SERIAL){  
-//    Serial.print("\n");
-//  }
 
   logfile.println("");
   if (ECHO_TO_SERIAL){  

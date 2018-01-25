@@ -16,23 +16,12 @@ void calculate_wind_speed(){
   
   unsigned long T = millis();
   
-//  Serial.print("count_anemom = ");
-//  Serial.println(count_anemom);
-//  Serial.print("period = ");
-//  Serial.println(T - T_old_anemom);
-
-  // number of counts (4 counts per rotation)
-  float frequency = 1000 * count_anemom / (T - T_old_anemom);
-
-  // convert to rps and windspeed(m/s) 
-  Serial.print("freq = ");
-  Serial.println(frequency);
+  float frequency = 1000 * count_anemom / (T - T_old_anemom);   // 4 counts per rotation
 
   windspeed = frequency * 0.66;
-  Serial.print("windspeed = ");
-  Serial.println(windspeed); 
   
   T_old_anemom = millis();
-  count_anemom = 0; 
+  count_anemom = 0;
+  
   attachInterrupt(digitalPinToInterrupt(anemom_pin), rotations, RISING);
 }
