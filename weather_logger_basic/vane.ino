@@ -13,20 +13,24 @@ void wind_direction(){
   Serial.print("voltage = "); 
   Serial.println(voltage); 
   
-//  for (int i=0; i < 16; i++){
-//    float voltage_diff[i] = abs(V_vane[i] - voltage);
-//  }
+  
+  for (int i=0; i < 16; i++){
+    V_vane_diff[i] = abs(V_vane[i] - voltage);
+  }
 
-//  // find the minimum difference between the measured voltage and the voltage in the look-up table
-//  // the wind direction is the angle with the same index as the voltage selected from the look up table 
-//  minimum  = voltage_diff[0];
-//  windDirection = vane_angle[0];  
-//  for (int i=0; i < 16; i++){
-//      if (minimum > voltage_diff[i]){
-//          minimum  = voltage_diff[i];
-//          windDirection = vane_angle[i];
-//      }      
-//  }
+  // find the minimum difference between the measured voltage and the voltage in the look-up table
+  // the wind direction is the angle with the same index as the voltage selected from the look up table 
+  minimum  = V_vane_diff[0];
+  windDirection = vane_angle[0];  
+  for (int i=0; i < 16; i++){
+      if (minimum > V_vane_diff[i]){
+          minimum  = V_vane_diff[i];
+          windDirection = vane_angle[i];    
+      }      
+  }
+
+  Serial.print("wind direction = "); 
+  Serial.println(windDirection);
 
 }
 
