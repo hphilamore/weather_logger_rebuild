@@ -38,7 +38,7 @@ void setup() {
 //    rtc.setDate(D, M, Y);  
 //  }    
   
-  // on baord LED pins
+  // on board LED pins
   pinMode(redLED, OUTPUT);
   pinMode(greenLED, OUTPUT);
   
@@ -47,19 +47,11 @@ void setup() {
     Serial.println("Card init. failed!");
     errorLED(2);
   }
-  
-//  // comment out if not using UV sensor
-//  if (! uv.begin()) {
-//    Serial.println("Didn't find Si1145");
-//    while (1);
-//  }
-  
-  // initialise the variable filename with a string
-  strcpy(filename, "ANALOG00.TXT");
 
-  
+  strcpy(filename, "ANALOG00.TXT");     // initialise the variable filename with a string
+
   // loop through 100 possible filenames...
-  for (uint8_t i = 0; i < 100; i++) {
+  for (uint8_t i = 0; i < 100; i++) {   
     filename[6] = '0' + i/10;
     filename[7] = '0' + i%10;
         
@@ -78,6 +70,19 @@ void setup() {
   
   Serial.print("Writing to ");
   Serial.println(filename);
+  
+//  // comment out if not using UV sensor
+//  if (! uv.begin()) {
+//    Serial.println("Didn't find Si1145");
+//    while (1);
+//  }
+  
+  
+
+  
+  
+
+
   
 //  column_headings_to_SD();
 //
