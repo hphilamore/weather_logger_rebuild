@@ -1,16 +1,16 @@
 /*
- *  |----- Vvane (e.g. 3.3V) 
+ *  |----- GND
  *  |
  *  | 
  *  |
- *  |----- vane 1 and Pin 9
+ *  |----- vane 1 
  *  
  *  
  *  |----- vane 4 and Pin A1
  *  | 
  *  | Rvane = 10K
  *  |
- *  |----- GND
+ *  |----- Vvane (e.g. 3.3V) 
  */
 
 #define vane_pin A1     // the pin to read the sensor voltage on
