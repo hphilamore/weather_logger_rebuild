@@ -131,10 +131,10 @@ void loop() {
     save_to_SD();
     T_old = millis();
 
-    logfile = SD.open(filename, FILE_WRITE);
-    logfile.println(count_anemom);
-    logfile.close();
-    Serial.println(count_anemom);    
+//    logfile = SD.open(filename, FILE_WRITE);
+//    logfile.println(count_anemom);
+//    logfile.close();
+//    Serial.println(count_anemom);    
 
     digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
     

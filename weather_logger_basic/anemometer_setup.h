@@ -6,7 +6,7 @@
  *  |----- anemometer 2 and Pin 9
  *  
  *  
- *  |----- anemometer 1
+ *  |----- anemometer 3
  *  | 
  *  | 10k
  *  |
