@@ -5,17 +5,18 @@
 //#include "UV_lightmeter_setup.h"
 //#include "anemometer_setup.h"
 
-#define cardSelect 4            // pin used for SD card
+#define cardSelect 4              // pin used for SD card
 //#define LOG_INTERVAL 1000       // mills between entries
-//#define ECHO_TO_SERIAL true    // echo data to serial port
+//#define ECHO_TO_SERIAL true     // echo data to serial port
 #define redLED 13
 #define greenLED 8
 //#include "error_LED_signal.h"
 
 
-char filename[15];            // create text array with desired number of characters
-File logfile;                 // create logging file object
-//RTCZero rtc;                  // create real time clock object
+char filename[15];              // create text array with desired number of characters
+File logfile;                   // create logging file object
+
+RTCZero rtc;                  // create real time clock object
 
 //// RTC time and date setup
 //// Set to true and set clock a few seconds in the future.
@@ -26,12 +27,10 @@ File logfile;                 // create logging file object
 
 
 void setup() {
-  // 115200 to read the GPS fast enough and echo without dropping chars
-  Serial.begin(115200);
   
-//  // Start the RTC
-//  Wire.begin();  
-//  rtc.begin();
+  Serial.begin(115200);       // 115200 to read the GPS fast enough and echo without dropping chars
+  Wire.begin();  
+  rtc.begin();                // Start the RTC
 
 //  // set the date and time
 //  if (set_RTC_date_time){
