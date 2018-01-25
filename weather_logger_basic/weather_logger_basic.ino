@@ -21,9 +21,9 @@ RTCZero rtc;                  // create real time clock object
 //// RTC time and date setup
 //// Set to true and set clock a few seconds in the future.
 //// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
-//int set_RTC_date_time = 1;
-//int D = 23, M = 1, Y = 18;
-//int h = 16, m = 42, s = 0; 
+int set_RTC_date_time = 1;
+int D = 23, M = 1, Y = 18;
+int h = 16, m = 42, s = 0; 
 
 
 void setup() {
@@ -32,11 +32,11 @@ void setup() {
   Wire.begin();  
   rtc.begin();                // Start the RTC
 
-//  // set the date and time
-//  if (set_RTC_date_time){
-//    rtc.setTime(h, m, s);  
-//    rtc.setDate(D, M, Y);  
-//  }    
+  // set the date and time
+  if (set_RTC_date_time){
+    rtc.setTime(h, m, s);  
+    rtc.setDate(D, M, Y);  
+  }    
   
   // on board LED pins
   pinMode(redLED, OUTPUT);
