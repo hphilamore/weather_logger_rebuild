@@ -16,21 +16,19 @@ RTCZero rtc;                  // create real time clock object
 int D = 23, M = 1, Y = 18;
 int h = 16, m = 42, s = 0; 
 
-
-
-#define cardSelect 4              // pin used for SD card
-//#define LOG_INTERVAL 1000       // mills between entries
+// User defined parameters
+#define LOG_INTERVAL 1000       // mills between entries
 #define ECHO_TO_SERIAL true     // echo data to serial port
+#define anemometer true      // measure anemometer
+
 #define redLED 13
 #define greenLED 8
-//#include "error_LED_signal.h"
-
+#define cardSelect 4              // pin used for SD card
 
 char filename[15];              // create text array with desired number of characters
 File logfile;                   // create logging file object
-
-
-
+bool first_loop = true;         // defines operations that only happen the first time the code loops
+unsigned long T_old_anemom;
 
 void setup() {
   
@@ -78,19 +76,20 @@ void setup() {
   Serial.println(filename);
 
   column_headings_to_SD();
+
+  unsigned long T = millis();
+  Serial.println(millis());
+  Serial.println(T);
+
+  if( anemometer ){
+    T_old_anemom = millis();
+  }
   
 //  // comment out if not using UV sensor
 //  if (! uv.begin()) {
 //    Serial.println("Didn't find Si1145");
 //    while (1);
 //  }
-  
-  
-
-  
-  
-
-
   
 //  column_headings_to_SD();
 //
@@ -104,13 +103,22 @@ uint8_t i=0;
 
 void loop() {
 
-
-            
+//  if (anemometer){
+//    if (first_loop){
+//      unsigned long T_old_anemom = millis();
+//    } 
+//  } 
+           
   digitalWrite(greenLED, HIGH);         // LED on to show device is on
   logfile = SD.open(filename, FILE_WRITE);
   logfile.print("A0 = "); logfile.println(analogRead(0));
   logfile.close();
   Serial.print("A0 = "); Serial.println(analogRead(0));
+  if( anemometer){
+    Serial.println(T_old_anemom);
+    Serial.println(millis());
+  }
+  
   digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
      
   //column_headings_to_SD();
@@ -136,6 +144,8 @@ void loop() {
 //  delay(LOG_INTERVAL);
 
   //Serial.println(anemometer_count);
+  first_loop = false;
+  
  } 
 
 
