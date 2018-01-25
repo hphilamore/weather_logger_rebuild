@@ -7,7 +7,7 @@
 
 #define cardSelect 4              // pin used for SD card
 //#define LOG_INTERVAL 1000       // mills between entries
-//#define ECHO_TO_SERIAL true     // echo data to serial port
+#define ECHO_TO_SERIAL true     // echo data to serial port
 #define redLED 13
 #define greenLED 8
 //#include "error_LED_signal.h"
@@ -21,7 +21,7 @@ RTCZero rtc;                  // create real time clock object
 //// RTC time and date setup
 //// Set to true and set clock a few seconds in the future.
 //// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
-int set_RTC_date_time = 1;
+int set_RTC_date_time = 0;
 int D = 23, M = 1, Y = 18;
 int h = 16, m = 42, s = 0; 
 
@@ -103,6 +103,7 @@ void loop() {
   logfile.close();
   Serial.print("A0 = "); Serial.println(analogRead(0));
   digitalWrite(8, LOW);
+  column_headings_to_SD();
   
   delay(100);
 
@@ -142,6 +143,54 @@ void errorLED(uint8_t errno) {
     }
   }
 }
+
+void column_headings_to_SD(){
+ /*  
+  *  Parameters not being loggedshould be commented out
+  */
+  
+  // open the file to write data
+  logfile = SD.open(filename, FILE_WRITE);
+  
+  // if there is no SD card, print error message
+  if( ! logfile ) {
+    Serial.print("Couldnt create/open file: ");
+    Serial.println(filename);
+    errorLED(3);
+  }
+  
+  logfile.print("Date"); logfile.print("\t"); logfile.print("Time"); logfile.print("\t");
+  if (ECHO_TO_SERIAL){
+    Serial.print("Date"); Serial.print("\t"); Serial.print("Time"); Serial.print("\t");
+  }
+
+  // UV index
+  logfile.print("UV_index"); 
+  logfile.print("\t");
+  if (ECHO_TO_SERIAL){  
+    Serial.print("UV_index");
+    Serial.print("\t");
+  }
+ 
+  // windspeed
+  logfile.print("windspeed"); 
+  logfile.print("\t");
+  if (ECHO_TO_SERIAL){  
+    Serial.print("windspeed");
+    Serial.print("\t");
+  }
+
+
+
+  logfile.print("\n");
+  if (ECHO_TO_SERIAL){  
+    Serial.print("\n");
+  }
+
+  // close the file ensuring that written data is physically saved to the SD card
+  logfile.close();
+}
+
 
 
 //void rpm_fun()
