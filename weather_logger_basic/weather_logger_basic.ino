@@ -104,12 +104,14 @@ uint8_t i=0;
 void loop() {
 
 
-  digitalWrite(8, HIGH);
+            
+  digitalWrite(greenLED, HIGH);         // LED on to show device is on
   logfile = SD.open(filename, FILE_WRITE);
   logfile.print("A0 = "); logfile.println(analogRead(0));
   logfile.close();
   Serial.print("A0 = "); Serial.println(analogRead(0));
-  digitalWrite(8, LOW);
+  digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+     
   //column_headings_to_SD();
   
   delay(100);
@@ -140,9 +142,9 @@ void errorLED(uint8_t errno) {
   while(1) {
     uint8_t i;
     for (i=0; i<errno; i++) {
-      digitalWrite(13, HIGH);
+      digitalWrite(redLED, HIGH);
       delay(100);
-      digitalWrite(13, LOW);
+      digitalWrite(redLED, LOW);
       delay(100);
     }
     for (i=errno; i<10; i++) {
