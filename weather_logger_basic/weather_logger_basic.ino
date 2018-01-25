@@ -20,7 +20,8 @@ int h = 16, m = 42, s = 0;
 // User defined parameters
 #define LOG_INTERVAL 1000       // mills between entries
 #define ECHO_TO_SERIAL true     // echo data to serial port
-#define anemometer true      // measure anemometer
+#define anemometer true         // measure anemometer
+#define wind_vane true          // measure wind_vane
 
 #define redLED 13
 #define greenLED 8
@@ -86,7 +87,7 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(anemom_pin), rotations, RISING);
   }
 
-  
+
 
   
   
@@ -130,11 +131,17 @@ void loop() {
     if( anemometer ){
       wind_speed();
     }
+
+    
+    if( wind_vane ){
+      wind_direction();
+    }
+
     
     save_to_SD();
     T_old = millis();
 
-    wind_direction();
+    
 
 //    logfile = SD.open(filename, FILE_WRITE);
 //    logfile.println(count_anemom);

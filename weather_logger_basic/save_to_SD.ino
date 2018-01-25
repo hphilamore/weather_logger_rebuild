@@ -26,6 +26,7 @@ void column_headings_to_SD(){
     Serial.print("\t");
   }
 
+
  
   // windspeed
   if( anemometer ){
@@ -33,6 +34,16 @@ void column_headings_to_SD(){
     logfile.print("\t");
     if (ECHO_TO_SERIAL){  
       Serial.print("windspeed");
+      Serial.print("\t");
+    }
+  }
+
+
+  if( wind_vane ){
+    logfile.print("windAngle"); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print("windAngle");
       Serial.print("\t");
     }
   }
@@ -94,6 +105,16 @@ void save_to_SD(){
     logfile.print("\t");
     if (ECHO_TO_SERIAL){
       Serial.print(windspeed);
+      Serial.print("\t");
+    }
+  }
+
+
+  if( wind_vane ){
+    logfile.print(windDirection); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print(windDirection);
       Serial.print("\t");
     }
   }
