@@ -5,6 +5,18 @@
 //#include "UV_lightmeter_setup.h"
 //#include "anemometer_setup.h"
 
+
+RTCZero rtc;                  // create real time clock object
+
+//// RTC time and date setup
+//// Set to true and set clock a few seconds in the future.
+//// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
+int set_RTC_date_time = 0;
+int D = 23, M = 1, Y = 18;
+int h = 16, m = 42, s = 0; 
+
+
+
 #define cardSelect 4              // pin used for SD card
 //#define LOG_INTERVAL 1000       // mills between entries
 #define ECHO_TO_SERIAL true     // echo data to serial port
@@ -16,14 +28,7 @@
 char filename[15];              // create text array with desired number of characters
 File logfile;                   // create logging file object
 
-RTCZero rtc;                  // create real time clock object
 
-//// RTC time and date setup
-//// Set to true and set clock a few seconds in the future.
-//// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
-int set_RTC_date_time = 0;
-int D = 23, M = 1, Y = 18;
-int h = 16, m = 42, s = 0; 
 
 
 void setup() {
