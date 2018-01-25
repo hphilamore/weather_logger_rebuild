@@ -207,6 +207,14 @@ void save_to_SD(){
 //    Serial.print("\n");
 //  }
 
+  logfile.print("\n");
+  if (ECHO_TO_SERIAL){  
+    Serial.print("\n");
+  }
+
+  // close the file ensuring that written data is physically saved to the SD card
+  logfile.close();
+
  }
 
 //void column_headings_to_SD(){
