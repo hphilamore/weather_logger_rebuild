@@ -29,6 +29,7 @@ char filename[15];              // create text array with desired number of char
 File logfile;                   // create logging file object
 bool first_loop = true;         // defines operations that only happen the first time the code loops
 unsigned long T_old_anemom;
+unsigned long T_old;
 
 void setup() {
   
@@ -77,9 +78,7 @@ void setup() {
 
   column_headings_to_SD();
 
-  unsigned long T = millis();
-  Serial.println(millis());
-  Serial.println(T);
+  T_old = millis();
 
   if( anemometer ){
     T_old_anemom = millis();
@@ -118,11 +117,13 @@ void loop() {
     Serial.println(T_old_anemom);
     Serial.println(millis());
   }
-  
   digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
      
   //column_headings_to_SD();
-  save_to_SD();
+  if ((millis() - T_old) > LOG_INTERVAL){ 
+    save_to_SD();
+    T_old = millis();
+  }
   
   delay(100);
 
