@@ -82,7 +82,10 @@ void setup() {
 
   if( anemometer ){
     T_old_anemom = millis();
+    attachInterrupt(digitalPinToInterrupt(anemom_pin), rotations, RISING);
   }
+
+  
   
 //  // comment out if not using UV sensor
 //  if (! uv.begin()) {
@@ -109,11 +112,16 @@ void loop() {
 //  } 
            
   digitalWrite(greenLED, HIGH);         // LED on to show device is on
+  
 //  logfile = SD.open(filename, FILE_WRITE);
 //  logfile.print("A0 = "); logfile.println(analogRead(0));
 //  logfile.close();
 //  Serial.print("A0 = "); Serial.println(analogRead(0));
 
+  logfile = SD.open(filename, FILE_WRITE);
+  logfile.println(count_anemom);
+  logfile.close();
+  Serial.println(count_anemom);
 
   if ((millis() - T_old) > LOG_INTERVAL){ 
     save_to_SD();
