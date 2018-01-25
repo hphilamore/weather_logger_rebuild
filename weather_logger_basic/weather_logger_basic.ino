@@ -11,7 +11,8 @@ RTCZero rtc;                  // create real time clock object
 //// RTC time and date setup
 //// Set to true and set clock a few seconds in the future.
 //// Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
-int set_RTC_date_time = 0;
+#define set_RTC_date_time false
+//int set_RTC_date_time = 0;
 int D = 23, M = 1, Y = 18;
 int h = 16, m = 42, s = 0; 
 
@@ -155,67 +156,67 @@ void errorLED(uint8_t errno) {
 }
 
 
-void save_to_SD(){
-  /* 
-   *  Saves data to SD card (and optionally prints to serial)
-   *  Parameters not being loggedshould be commented out
-   */
-  // open the file to write data
-  logfile = SD.open(filename, FILE_WRITE);
-  
-  // if there is no SD card, print error message
-  if( ! logfile ) {
-    Serial.print("Couldnt create/open file: ");
-    Serial.println(filename);
-  }
-
-   
-  // write timestamp to file on SD card (and serial monitor)
-  logfile.print(rtc.getDay()); logfile.print("/"); logfile.print(rtc.getMonth()); logfile.print("/"); logfile.print(rtc.getYear());
-  logfile.print("\t");    
-  logfile.print(rtc.getHours()); logfile.print(":"); logfile.print(rtc.getMinutes()); logfile.print(":"); logfile.print(rtc.getSeconds());
-  logfile.print("\t");
-
-
-  if (ECHO_TO_SERIAL){
-    Serial.print(rtc.getDay()); Serial.print("/"); Serial.print(rtc.getMonth()); Serial.print("/"); Serial.print(rtc.getYear());
-    Serial.print("\t");
-    Serial.print(rtc.getHours()); Serial.print(":"); Serial.print(rtc.getMinutes()); Serial.print(":"); Serial.print(rtc.getSeconds());
-    Serial.print("\t");
-  }
-
-
-//  // write uv index to file on SD card (and serial monitor)
-//  logfile.print(UVindex); 
+//void save_to_SD(){
+//  /* 
+//   *  Saves data to SD card (and optionally prints to serial)
+//   *  Parameters not being loggedshould be commented out
+//   */
+//  // open the file to write data
+//  logfile = SD.open(filename, FILE_WRITE);
+//  
+//  // if there is no SD card, print error message
+//  if( ! logfile ) {
+//    Serial.print("Couldnt create/open file: ");
+//    Serial.println(filename);
+//  }
+//
+//   
+//  // write timestamp to file on SD card (and serial monitor)
+//  logfile.print(rtc.getDay()); logfile.print("/"); logfile.print(rtc.getMonth()); logfile.print("/"); logfile.print(rtc.getYear());
+//  logfile.print("\t");    
+//  logfile.print(rtc.getHours()); logfile.print(":"); logfile.print(rtc.getMinutes()); logfile.print(":"); logfile.print(rtc.getSeconds());
 //  logfile.print("\t");
+//
+//
 //  if (ECHO_TO_SERIAL){
-//    Serial.print(UVindex);
+//    Serial.print(rtc.getDay()); Serial.print("/"); Serial.print(rtc.getMonth()); Serial.print("/"); Serial.print(rtc.getYear());
+//    Serial.print("\t");
+//    Serial.print(rtc.getHours()); Serial.print(":"); Serial.print(rtc.getMinutes()); Serial.print(":"); Serial.print(rtc.getSeconds());
 //    Serial.print("\t");
 //  }
-
-
-//  // write windspeed to file on SD card (and serial monitor)
-//  logfile.print(windspeed); 
-//  logfile.print("\t");
-//  if (ECHO_TO_SERIAL){
-//    Serial.print(windspeed);
-//    Serial.print("\t");
-//  }
-  
+//
+//
+////  // write uv index to file on SD card (and serial monitor)
+////  logfile.print(UVindex); 
+////  logfile.print("\t");
+////  if (ECHO_TO_SERIAL){
+////    Serial.print(UVindex);
+////    Serial.print("\t");
+////  }
+//
+//
+////  // write windspeed to file on SD card (and serial monitor)
+////  logfile.print(windspeed); 
+////  logfile.print("\t");
+////  if (ECHO_TO_SERIAL){
+////    Serial.print(windspeed);
+////    Serial.print("\t");
+////  }
+//  
+////  logfile.print("\n");
+////  if (ECHO_TO_SERIAL){  
+////    Serial.print("\n");
+////  }
+//
 //  logfile.print("\n");
 //  if (ECHO_TO_SERIAL){  
 //    Serial.print("\n");
 //  }
-
-  logfile.print("\n");
-  if (ECHO_TO_SERIAL){  
-    Serial.print("\n");
-  }
-
-  // close the file ensuring that written data is physically saved to the SD card
-  logfile.close();
-
- }
+//
+//  // close the file ensuring that written data is physically saved to the SD card
+//  logfile.close();
+//
+// }
 
 //void column_headings_to_SD(){
 // /*  
