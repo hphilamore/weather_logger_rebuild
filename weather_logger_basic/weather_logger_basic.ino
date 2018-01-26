@@ -5,6 +5,7 @@
 #include "UVlightmeter_setup.h"
 #include "anemometer_setup.h"
 #include "vane_setup.h"
+#include "PV_power_setup.h"
 
 RTCZero rtc;                  // create real time clock object
 
@@ -21,6 +22,7 @@ int h = 16, m = 42, s = 0;
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
 #define UVsensor true          // measure UV index
+#define PV_cell true           // measure PV cell power output
 
 #define redLED 13
 #define greenLED 8
@@ -116,6 +118,10 @@ void loop() {
     if( UVsensor ){
       UV_index();
     }
+
+    if (PV_cell ){
+      PVpower();
+    }
     
     save_to_SD();
     T_old = millis();  
@@ -166,6 +172,21 @@ void errorLED(uint8_t errno) {
   }
 }
 
+
+//void PVpower(){
+//  sense_pv  = analogRead(PV_sense_pin);                // voltage on voltage divider pin read as binary value (range 0 to 1023) 
+////    
+//  Vsense_pv = sense_pv * (Vs / 1023.0);           // binary value converted to voltage
+////  
+////  Vpv = Vsense_pv * (R1 + R2) / R1;                  // voltage output from PV panel calculated 
+////  Serial.print("PV voltage = ");
+////  Serial.println(Vpv); 
+////
+////  Ppv = sq(Vpv) / (R1 + R2);
+////  Serial.print("PV power = ");
+////  Serial.println(Ppv); 
+//
+//}
 
 //void save_to_SD(){
 //  /* 

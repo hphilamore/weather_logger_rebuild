@@ -28,9 +28,5 @@ void wind_direction(){
           windDirection = vane_angle[i];    
       }      
   }
-
-  Serial.print("wind direction = "); 
-  Serial.println(windDirection);
-
 }
 
