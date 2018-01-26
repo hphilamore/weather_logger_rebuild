@@ -32,24 +32,34 @@ void column_headings_to_SD(){
  
   // windspeed
   if( anemometer ){
-    logfile.print("windspeed"); 
+    logfile.print("windspeed(m/s)"); 
     logfile.print("\t");
     if (ECHO_TO_SERIAL){  
-      Serial.print("windspeed");
+      Serial.print("windspeed(m/s)");
       Serial.print("\t");
     }
   }
 
 
   if( wind_vane ){
-    logfile.print("windAngle"); 
+    logfile.print("windAngle(deg)"); 
     logfile.print("\t");
     if (ECHO_TO_SERIAL){  
-      Serial.print("windAngle");
+      Serial.print("windAngle(deg)");
       Serial.print("\t");
     }
   }
 
+
+  if( PV_cell ){
+    logfile.print("PV_power(W)"); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print("PV_power(W)");
+      Serial.print("\t");
+    }
+  }
+  
 
   logfile.println("");
   if (ECHO_TO_SERIAL){  
@@ -118,6 +128,16 @@ void save_to_SD(){
     logfile.print("\t");
     if (ECHO_TO_SERIAL){  
       Serial.print(windDirection);
+      Serial.print("\t");
+    }
+  }
+
+
+  if( PV_cell ){
+    logfile.print(Ppv, 5); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print(Ppv, 5);
       Serial.print("\t");
     }
   }

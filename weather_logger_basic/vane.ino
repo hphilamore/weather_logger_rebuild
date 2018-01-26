@@ -10,8 +10,8 @@ void wind_direction(){
   
   float reading  = analogRead(vane_pin);      // voltage on voltage divider pin read as binary value (range 0 to 1023)   
   float voltage = reading * (Vs_vane / 1023.0);     // binary value converted to voltage
-  Serial.print("voltage = "); 
-  Serial.println(voltage); 
+//  Serial.print("voltage = "); 
+//  Serial.println(voltage); 
   
   
   for (int i=0; i < 16; i++){

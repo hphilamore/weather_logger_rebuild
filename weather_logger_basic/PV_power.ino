@@ -4,14 +4,14 @@ void PVpower(){
   Vsense_pv = sense_pv * (Vs / 1023.0);           // binary value converted to voltage
   
   Vpv = Vsense_pv * (R1 + R2) / R1;                  // voltage output from PV panel calculated 
-  Serial.print("PV voltage = ");
-  Serial.println(Vpv); 
+//  Serial.print("PV voltage = ");
+//  Serial.println(Vpv); 
 
   Ppv = sq(Vpv) / (R1 + R2);
-  Serial.print("PV power = ");
-  Serial.println(Ppv); 
+//  Serial.print("PV power = ");
+//  Serial.println(Ppv); 
 
-  Serial.print("");
+//  Serial.print("");
 
 }
 
