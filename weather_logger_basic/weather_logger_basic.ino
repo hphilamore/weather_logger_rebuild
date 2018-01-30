@@ -17,14 +17,16 @@ int D = 27, M = 1, Y = 18;
 int h = 15, m = 12, s = 0; 
 
 // User defined parameters
-#define LOG_INTERVAL 30000      // mills between entries
-#define LED_INTERVAL 1000       // mills between logging LED flashes
-#define LED_PERIOD   200         // millis logging LED remains on for fir one flash   
+
+#define LOG_INTERVAL 60000      // mills between entries
+#define LED_INTERVAL 1000       // mills between LED flashes to indicate logging is in process
 #define ECHO_TO_SERIAL true     // echo data to serial port
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
-#define UVsensor false          // measure UV index   BUG - IF SET TO TRUE, BUT SENSOR NOT ATTACHED, PROGRAM WILL HANG
-#define PV_cell true            // measure PV cell power output
+#define UVsensor false          // measure UV index : BUG - PROGRAM WILL HANG IF UV SENSIR NOT PRESENT BUT VARIABLE SET TO TRUE           
+
+#define PV_cell true           // measure PV cell power output
+
 
 #define redLED 13
 #define greenLED 8
@@ -34,9 +36,10 @@ char filename[15];              // create text array with desired number of char
 File logfile;                   // create logging file object
 //bool first_loop = true;       // defines operations that only happen the first time the code loops
 
-unsigned long T_old;
-unsigned long TLED_old;
-unsigned long TLEDon_old;
+
+unsigned long T_old;           // timer for logging
+unsigned long TLED_old;        // timer for LED flash to show logging
+
 
 void setup() {
   
@@ -86,6 +89,7 @@ void setup() {
   column_headings_to_SD();
 
   T_old = millis();
+  TLED_old = millis();
 
   if( anemometer ){
     T_old_anemom = millis();
@@ -109,20 +113,21 @@ uint8_t i=0;
 
 void loop() {
 
+
   if ((millis() - TLED_old) > LED_INTERVAL){
     digitalWrite(greenLED, HIGH);         // LED on to show device is on
-    TLEDon_old = millis();
-    // delay(20);
+    delay(20);
+    digitalWrite(greenLED, LOW);         // LED on to show device is on
+    TLED_old = millis();
+
   }
 
-  if ((millis() - TLEDon_old) > LED_PERIOD){
-      digitalWrite(greenLED, LOW);         // LED on to show device is on
-      TLEDon_old = millis();
-  }
+
+
 
   if ((millis() - T_old) > LOG_INTERVAL){ 
     
-    //digitalWrite(greenLED, HIGH);         // LED on to show device is on
+    // digitalWrite(greenLED, HIGH);         // LED on to show device is on
 
     if( anemometer ){
       wind_speed();
@@ -143,7 +148,9 @@ void loop() {
     save_to_SD();
     T_old = millis();  
 
-    //digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+
+    // digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+
     
   }
 } 
