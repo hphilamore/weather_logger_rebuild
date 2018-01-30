@@ -17,13 +17,14 @@ int D = 27, M = 1, Y = 18;
 int h = 15, m = 12, s = 0; 
 
 // User defined parameters
-#define LOG_INTERVAL 30000       // mills between entries
-#define LED_INTERVAL 1000       // mills between entries
+#define LOG_INTERVAL 30000      // mills between entries
+#define LED_INTERVAL 1000       // mills between logging LED flashes
+#define LED_PERIOD   200         // millis logging LED remains on for fir one flash   
 #define ECHO_TO_SERIAL true     // echo data to serial port
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
-#define UVsensor false          // measure UV index
-#define PV_cell true           // measure PV cell power output
+#define UVsensor false          // measure UV index   BUG - IF SET TO TRUE, BUT SENSOR NOT ATTACHED, PROGRAM WILL HANG
+#define PV_cell true            // measure PV cell power output
 
 #define redLED 13
 #define greenLED 8
@@ -35,6 +36,7 @@ File logfile;                   // create logging file object
 
 unsigned long T_old;
 unsigned long TLED_old;
+unsigned long TLEDon_old;
 
 void setup() {
   
@@ -109,14 +111,18 @@ void loop() {
 
   if ((millis() - TLED_old) > LED_INTERVAL){
     digitalWrite(greenLED, HIGH);         // LED on to show device is on
-    delay(20);
-    TLED_old = millis();
-    digitalWrite(greenLED, LOW);         // LED on to show device is on
+    TLEDon_old = millis();
+    // delay(20);
+  }
+
+  if ((millis() - TLEDon_old) > LED_PERIOD){
+      digitalWrite(greenLED, LOW);         // LED on to show device is on
+      TLEDon_old = millis();
   }
 
   if ((millis() - T_old) > LOG_INTERVAL){ 
     
-    digitalWrite(greenLED, HIGH);         // LED on to show device is on
+    //digitalWrite(greenLED, HIGH);         // LED on to show device is on
 
     if( anemometer ){
       wind_speed();
@@ -137,7 +143,7 @@ void loop() {
     save_to_SD();
     T_old = millis();  
 
-    digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
+    //digitalWrite(greenLED, LOW);          // LED off to show readings have been taken
     
   }
 } 
