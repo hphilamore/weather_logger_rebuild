@@ -21,7 +21,7 @@ int h = 15, m = 12, s = 0;
 #define ECHO_TO_SERIAL true     // echo data to serial port
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
-#define UVsensor true          // measure UV index
+#define UVsensor false          // measure UV index
 #define PV_cell true           // measure PV cell power output
 
 #define redLED 13
@@ -90,11 +90,11 @@ void setup() {
 
 
   if( UVsensor ){
-    uv.begin();
-//    if (! uv.begin()) {
-//      Serial.println("Didn't find Si1145 UV meter");
-//      
-//    }  
+    //uv.begin();
+    if (! uv.begin()) {
+      Serial.println("Didn't find Si1145 UV meter");
+      
+    }  
   }
 
   
