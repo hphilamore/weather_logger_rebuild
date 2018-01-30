@@ -1,16 +1,16 @@
-/*
- *  |----- Vs (e.g. 3.3V) 
+ /*
+ *  |----- GND
  *  |
- *  | 1k
- *  |
- *  |----- anemometer 2 and Pin 9
- *  
- *  
- *  |----- anemometer 3
- *  | 
  *  | 10k
  *  |
- *  |----- GND
+ *  |----- anemometer 2
+ *  
+ *  
+ *  |----- anemometer 3 and Pin 9
+ *  | 
+ *  | 1k
+ *  |
+ *  |----- Vs (e.g. 3.3V)
  */
 
 #define period_anemom 1000

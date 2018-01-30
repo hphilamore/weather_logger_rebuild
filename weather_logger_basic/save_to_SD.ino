@@ -58,6 +58,13 @@ void column_headings_to_SD(){
       Serial.print("PV_power(W)");
       Serial.print("\t");
     }
+
+    logfile.print("PV_voltage(V)"); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print("PV_voltage(V)");
+      Serial.print("\t");
+    }
   }
   
 
@@ -138,6 +145,13 @@ void save_to_SD(){
     logfile.print("\t");
     if (ECHO_TO_SERIAL){  
       Serial.print(Ppv, 5);
+      Serial.print("\t");
+    }
+
+    logfile.print(Vpv, 5); 
+    logfile.print("\t");
+    if (ECHO_TO_SERIAL){  
+      Serial.print(Vpv, 5);
       Serial.print("\t");
     }
   }

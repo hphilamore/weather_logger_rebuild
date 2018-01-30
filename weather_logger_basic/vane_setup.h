@@ -13,6 +13,10 @@
  *  |----- Vvane (e.g. 3.3V) 
  */
 
+ // Imoportant note: The wiring for the vane means that the anemometer will no longer work in isolation. 
+ // i.e. The connection shown above will stop the anomometer working if connected directly to anemometer pins 1 and 4  
+ // The anemometer must be connected through the vane.  
+
 #define vane_pin A1     // the pin to read the sensor voltage on
 #define Vs_vane 3.3       // the supply voltage of the wind vane
 #define Rfixed_vane 10000     // the fixed resister in the voltage divider circuit 

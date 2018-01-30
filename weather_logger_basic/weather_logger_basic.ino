@@ -13,8 +13,8 @@ RTCZero rtc;                  // create real time clock object
 // Set to true and set clock a few seconds in the future.
 // Set to false and re-upload the program (if the board remains powered, the RTC will hold the date/time)
 #define set_RTC_date_time false
-int D = 23, M = 1, Y = 18;
-int h = 16, m = 42, s = 0; 
+int D = 27, M = 1, Y = 18;
+int h = 15, m = 12, s = 0; 
 
 // User defined parameters
 #define LOG_INTERVAL 1000       // mills between entries
@@ -90,12 +90,14 @@ void setup() {
 
 
   if( UVsensor ){
-    if (! uv.begin()) {
-      Serial.println("Didn't find Si1145 UV meter");
-    }
-
-    
+    uv.begin();
+//    if (! uv.begin()) {
+//      Serial.println("Didn't find Si1145 UV meter");
+//      
+//    }  
   }
+
+  
 }
 
 
@@ -130,30 +132,6 @@ void loop() {
     
   }
 } 
-     
-
-
-
-
- 
-  
-  
-//  // LED on to show device is on
-//  digitalWrite(greenLED, HIGH);
-//
-//  // save data to SD card (and print to serial) 
-//  save_to_SD();
-//
-//  // LED off to show readings have bee taken
-//  digitalWrite(greenLED, LOW);
-//
-//  // delay between readings
-//  delay(LOG_INTERVAL);
-
-  //Serial.println(anemometer_count);
-//  first_loop = false;
-  
- //} 
 
 
  // blink out an error code
@@ -173,138 +151,4 @@ void errorLED(uint8_t errno) {
 }
 
 
-//void PVpower(){
-//  sense_pv  = analogRead(PV_sense_pin);                // voltage on voltage divider pin read as binary value (range 0 to 1023) 
-////    
-//  Vsense_pv = sense_pv * (Vs / 1023.0);           // binary value converted to voltage
-////  
-////  Vpv = Vsense_pv * (R1 + R2) / R1;                  // voltage output from PV panel calculated 
-////  Serial.print("PV voltage = ");
-////  Serial.println(Vpv); 
-////
-////  Ppv = sq(Vpv) / (R1 + R2);
-////  Serial.print("PV power = ");
-////  Serial.println(Ppv); 
-//
-//}
 
-//void save_to_SD(){
-//  /* 
-//   *  Saves data to SD card (and optionally prints to serial)
-//   *  Parameters not being loggedshould be commented out
-//   */
-//  // open the file to write data
-//  logfile = SD.open(filename, FILE_WRITE);
-//  
-//  // if there is no SD card, print error message
-//  if( ! logfile ) {
-//    Serial.print("Couldnt create/open file: ");
-//    Serial.println(filename);
-//  }
-//
-//   
-//  // write timestamp to file on SD card (and serial monitor)
-//  logfile.print(rtc.getDay()); logfile.print("/"); logfile.print(rtc.getMonth()); logfile.print("/"); logfile.print(rtc.getYear());
-//  logfile.print("\t");    
-//  logfile.print(rtc.getHours()); logfile.print(":"); logfile.print(rtc.getMinutes()); logfile.print(":"); logfile.print(rtc.getSeconds());
-//  logfile.print("\t");
-//
-//
-//  if (ECHO_TO_SERIAL){
-//    Serial.print(rtc.getDay()); Serial.print("/"); Serial.print(rtc.getMonth()); Serial.print("/"); Serial.print(rtc.getYear());
-//    Serial.print("\t");
-//    Serial.print(rtc.getHours()); Serial.print(":"); Serial.print(rtc.getMinutes()); Serial.print(":"); Serial.print(rtc.getSeconds());
-//    Serial.print("\t");
-//  }
-//
-//
-////  // write uv index to file on SD card (and serial monitor)
-////  logfile.print(UVindex); 
-////  logfile.print("\t");
-////  if (ECHO_TO_SERIAL){
-////    Serial.print(UVindex);
-////    Serial.print("\t");
-////  }
-//
-//
-////  // write windspeed to file on SD card (and serial monitor)
-////  logfile.print(windspeed); 
-////  logfile.print("\t");
-////  if (ECHO_TO_SERIAL){
-////    Serial.print(windspeed);
-////    Serial.print("\t");
-////  }
-//  
-////  logfile.print("\n");
-////  if (ECHO_TO_SERIAL){  
-////    Serial.print("\n");
-////  }
-//
-//  logfile.print("\n");
-//  if (ECHO_TO_SERIAL){  
-//    Serial.print("\n");
-//  }
-//
-//  // close the file ensuring that written data is physically saved to the SD card
-//  logfile.close();
-//
-// }
-
-//void column_headings_to_SD(){
-// /*  
-//  *  Parameters not being loggedshould be commented out
-//  */
-//  
-//  // open the file to write data
-//  logfile = SD.open(filename, FILE_WRITE);
-//  
-//  // if there is no SD card, print error message
-//  if( ! logfile ) {
-//    Serial.print("Couldnt create/open file: ");
-//    Serial.println(filename);
-//    errorLED(3);
-//  }
-//  
-//  logfile.print("Date"); logfile.print("\t"); logfile.print("Time"); logfile.print("\t");
-//  if (ECHO_TO_SERIAL){
-//    Serial.print("Date"); Serial.print("\t"); Serial.print("Time"); Serial.print("\t");
-//  }
-//
-//  // UV index
-//  logfile.print("UV_index"); 
-//  logfile.print("\t");
-//  if (ECHO_TO_SERIAL){  
-//    Serial.print("UV_index");
-//    Serial.print("\t");
-//  }
-// 
-//  // windspeed
-//  logfile.print("windspeed"); 
-//  logfile.print("\t");
-//  if (ECHO_TO_SERIAL){  
-//    Serial.print("windspeed");
-//    Serial.print("\t");
-//  }
-//
-//
-//
-//  logfile.print("\n");
-//  if (ECHO_TO_SERIAL){  
-//    Serial.print("\n");
-//  }
-//
-//  // close the file ensuring that written data is physically saved to the SD card
-//  logfile.close();
-//}
-
-
-
-//void rpm_fun()
-// {
-//   //Each rotation, this interrupt function is run twice, so take that into consideration for 
-//   //calculating RPM
-//   //Update count
-//   //count++;  // use if count is byte
-//   count +=1;
-//      
-// }
