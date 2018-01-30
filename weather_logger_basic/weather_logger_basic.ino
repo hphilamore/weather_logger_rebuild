@@ -22,7 +22,11 @@ int h = 15, m = 12, s = 0;
 #define ECHO_TO_SERIAL true     // echo data to serial port
 #define anemometer true         // measure anemometer
 #define wind_vane true          // measure wind_vane
+<<<<<<< HEAD
 #define UVsensor false          // measure UV index - PROGRAM WILL HANG IF UV SENSIR NOT PRESENT BUT VARIABLE SET TO TRUE             
+=======
+#define UVsensor true          // measure UV index
+>>>>>>> parent of eeb048c... bug - program will hang if UV sensor not attached but UV sensing set to true
 #define PV_cell true           // measure PV cell power output
 
 #define redLED 13
@@ -93,11 +97,11 @@ void setup() {
 
 
   if( UVsensor ){
-    //uv.begin();
-    if (! uv.begin()) {
-      Serial.println("Didn't find Si1145 UV meter");
-      
-    }  
+    uv.begin();
+//    if (! uv.begin()) {
+//      Serial.println("Didn't find Si1145 UV meter");
+//      
+//    }  
   }
 
   
